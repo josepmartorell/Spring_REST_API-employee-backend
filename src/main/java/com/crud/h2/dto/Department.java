@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author jtech
@@ -108,6 +111,20 @@ public class Department {
 		this.fecha = new Date();
 	}
 	
+	/**
+	 * @return the employee
+	 */
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Employee")
+	public List<Employee> getEmployee() {
+		return employee;
+	}
+	/**
+	 * @param employee the employee to set
+	 */
+	public void setEmployee(List<Employee> employee) {
+		this.employee = employee;
+	}
 	@Override
 	public String toString() {
 		return "Department [code=" + code + ", name=" + name + ", budget=" + budget + "]";
